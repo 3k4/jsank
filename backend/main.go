@@ -5,10 +5,12 @@ import (
 	"fmt"
 	"log"
 	"strconv"
+	"time"
 
 	"github.com/3k4/hjans-backend/authkey"
 	"github.com/3k4/hjans-backend/dbman"
 	"github.com/3k4/hjans-backend/models"
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 )
@@ -142,7 +144,7 @@ func main() {
 			// アクセスを許可したいアクセス元
 			AllowOrigins: []string{
 				"https://jsank.3k4.org",
-				"http://localhost",
+				"http://localhost:3000",
 			},
 			// アクセスを許可したいHTTPメソッド(以下の例だとPUTやDELETEはアクセスできません)
 			AllowMethods: []string{
@@ -159,10 +161,10 @@ func main() {
 				"Authorization",
 			},
 			// cookieなどの情報を必要とするかどうか
-			AllowCredentials: true
+			AllowCredentials: true,
 			// preflightリクエストの結果をキャッシュする時間
 			MaxAge: 1 * time.Hour,
-		  }))
+		}))
 
 		r.POST("/login", login)
 		r.GET("/login", isLoginedMe)
