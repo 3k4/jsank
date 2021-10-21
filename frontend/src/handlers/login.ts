@@ -2,6 +2,13 @@ import axios from "axios"
 
 import { APIAddress } from "../components/tools/info"
 
+export function DoLoginFromForm() {
+    const didf = <HTMLInputElement>document.getElementById("did")
+    const pwdf = <HTMLInputElement>document.getElementById("password")
+
+    DoLogin(didf.value, pwdf.value)
+}
+
 export function DoLogin(did: string, password: string) {
     console.log("login")
 
