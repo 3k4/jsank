@@ -137,6 +137,33 @@ func main() {
 
 	if mode == "server" {
 		r := gin.Default()
+
+		r.Use(cors.New(cors.Config{
+			// アクセスを許可したいアクセス元
+			AllowOrigins: []string{
+				"https://jsank.3k4.org",
+				"http://localhost",
+			},
+			// アクセスを許可したいHTTPメソッド(以下の例だとPUTやDELETEはアクセスできません)
+			AllowMethods: []string{
+				"POST",
+				"GET",
+			},
+			// 許可したいHTTPリクエストヘッダ
+			AllowHeaders: []string{
+				"Access-Control-Allow-Credentials",
+				"Access-Control-Allow-Headers",
+				"Content-Type",
+				"Content-Length",
+				"Accept-Encoding",
+				"Authorization",
+			},
+			// cookieなどの情報を必要とするかどうか
+			AllowCredentials: true
+			// preflightリクエストの結果をキャッシュする時間
+			MaxAge: 1 * time.Hour,
+		  }))
+
 		r.POST("/login", login)
 		r.GET("/login", isLoginedMe)
 		//ChoiceAnk
