@@ -12,7 +12,7 @@ export function DoLoginFromForm() {
 export function DoLogin(did: string, password: string) {
     console.log("login")
 
-    axios.post<string>(APIAddress() + "/createchoiceank",  {
+    axios.post<string>(APIAddress() + "/login",  {
         did: did,
         password: password
     }).then((res) => {

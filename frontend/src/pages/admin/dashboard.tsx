@@ -11,7 +11,9 @@ export function Dashboard(): JSX.Element {
             <h2>操作</h2>
             <ul>
                 <li>
-                    <Link to="/adm/createank">ログイン処理</Link>
+                    <Link to="/adm/login">ログイン処理</Link>
+                </li>
+                <li>
                     <Link to="/adm/createank">アンケートを作成</Link>
                 </li>
             </ul>

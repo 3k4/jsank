@@ -10,6 +10,7 @@ import {
 
 import { Dashboard } from './pages/admin/dashboard';
 import { CreateAnk } from './pages/admin/createank';
+import { LoginScreen } from './pages/admin/login';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Switch>
           <Route path="/adm/jsadm" component={Dashboard} />
           <Route path="/adm/createank" component={CreateAnk} />
+          <Route path="/adm/login" component={LoginScreen} />
         </Switch>
       </Router>
     </div>
