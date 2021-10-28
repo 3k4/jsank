@@ -8,7 +8,7 @@ import (
 )
 
 func MigrateAll(db *gorm.DB) {
-	err := db.AutoMigrate(&models.User{}, &models.Choiceank{}, &models.ChoiceAnkChoice{}, &models.AuthKey{})
+	err := db.AutoMigrate(&models.User{}, &models.ChoiceAnkChoice{}, &models.Ank{}, &models.AuthKey{}, &models.ChoiceAnkVote{}, &models.AnkFT{})
 	if err != nil {
 		log.Fatal("Cannot migrate")
 	}

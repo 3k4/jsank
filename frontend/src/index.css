@@ -1,6 +1,20 @@
 :root {
   --base-background-color: #131226;
   --base-color: #fff;
+  --primary-background-color: #00c288;
+  --primary-color: #000;
+  --secondary-background-color: #1760cc;
+  --secondary-color: #fff;
+
+  --ans-background-color: #fff;
+  --ans-color: #000;
+
+  --ans-first-background-color: #b80b0b;
+  --ans-first-color: #ffffff;
+  --ans-second-background-color: #44aeec;
+  --ans-second-color: #000000;
+  --ans-third-background-color: #e6cb36;
+  --ans-third-color: #000000;
 }
 
 * {
@@ -21,16 +35,38 @@ body {
 
 a {
   color: var(--base-color) !important;
+
+  text-decoration: underline;
 }
 
-a:hover {
-  background-color: red;
+.button {
+  display: inline-block;
+  padding: 5px 10px;
+
+  background-color: var(--secondary-background-color);
+  border: none;
+  border-radius: 10px;
+  
+  color: var(--secondary-color);
+  font-weight: bolder;
+  text-decoration: none;
 }
 
 .header {
-  background-color: var(--base-background-color);
+  position: fixed;
+  top: 0;
 
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  width: 100%;
+  padding: 5px 30px;
+
+  background-color: var(--primary-background-color);
   border-bottom: solid 1px #000;
+
+  color: var(--primary-color);
 }
 
 .admincontainer {
@@ -58,7 +94,7 @@ a:hover {
   padding: 0px 20px !important;
 }
 
-.admincontainer input {
+.admincontainer input[type="text"], .admincontainer input[type="password"] {
   display: block;
   
   width: 100%;
@@ -70,4 +106,220 @@ a:hover {
 
   font-size: 1.5em;
   color: var(--base-background-color);
+}
+
+.admincontainer input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+
+  border-radius: 10px;
+
+  background-color: gray
+}
+
+.admincontainer label {
+  display: inline-flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  padding: 5px;
+}
+.admincontainer label span {
+  margin-left: 10px;
+
+  font-size: 1.5em;
+}
+
+.admincontainer input[type="checkbox"]:checked {
+  background-color: var(--primary-background-color);
+
+  box-shadow: 0px 0px 20px 15px #2f99ac;
+}
+
+.answrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 100vh;
+  padding: 20px 0;
+
+  background-color: var(--ans-background-color);
+
+  color: var(--ans-color);
+
+  overflow: hidden;
+}
+
+
+@keyframes ansc-sani {
+  0% {
+    opacity: 0;
+    transform: translateY(-50%) rotate(15deg);
+  }
+}
+
+.anscontainer {
+  width: calc(90% - 30px);
+  min-height: calc(100vh - 100px);
+  padding: 30px;
+  
+  background-color: var(--ans-background-color);
+  border-radius: 20px;
+  border: solid 5px var(--ans-color);
+  box-shadow: 10px 10px 0px 0px #000;
+
+  animation-name: ansc-sani;
+  animation-duration: .5s;
+  animation-timing-function: ease;
+
+  overflow: auto;
+}
+
+.anscontainer .anktitle {
+  text-align: center;
+  font-size: 80px;
+  color: var(--ans-color);
+
+  background: linear-gradient(72deg, rgba(0,245,255,1) 0%, rgba(255,70,226,1) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 2px #000;
+  text-stroke: 2px #000;
+}
+
+.anscontainer .ankchoicelist .ankchoice {
+  display: block;
+  width: 100%;
+  margin: 20px 0;
+  padding: 30px;
+
+  border-radius: 10px;
+
+  /*cannot select*/
+  -ms-user-select: none;
+   -moz-user-select: -moz-none;
+   -khtml-user-select: none;
+   -webkit-user-select: none;
+   user-select: none;
+}
+
+.anscontainer .ankchoicelist .ankchoice.first {
+  background-color: var(--ans-first-background-color);
+  color: var(--ans-first-color);
+}
+.anscontainer .ankchoicelist .ankchoice.second {
+  background-color: var(--ans-second-background-color);
+  color: var(--ans-second-color);
+}
+.anscontainer .ankchoicelist .ankchoice.third {
+  background-color: var(--ans-third-background-color);
+  color: var(--ans-third-color);
+}
+
+.anscontainer .ansqrcode {
+  width: 100%;
+  /*画面に入り切るよう合わせる*/
+  height: 80vh;
+  margin: 20vh 0;
+}
+
+.anscontainer .ansinput {
+  display: block;
+  width: 100%;
+  margin: 10px 0;
+  padding: 10px;
+
+  border: 2px solid var(--base-background-color);
+
+  font-size: 1.5em;
+}
+
+.ftwrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+
+  overflow: hidden;
+}
+
+.ftwrapper .ansqrcode {
+  width: 20%;
+}
+
+@keyframes commentl {
+  0% {
+    left: 100%;
+    transform: translateX(100%);
+  }
+  100% {
+    left: 0;
+    transform: translateX(-100%);
+  }
+}
+
+.ftwrapper .comment {
+  display: block;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  -webkit-text-stroke: 1px var(--base-background-color);
+  color: var(--base-color);
+  font-weight: bolder;
+  font-size: 4em;
+  white-space: nowrap;
+
+  animation-name: commentl;
+  animation-duration: 10s;
+  animation-timing-function: linear;
+
+  overflow: hidden;
+
+  transform: translateX(-100%);
+}
+
+#notifwrapper {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+
+  display: block;
+
+  width: 350px;
+  height: 300px;
+  padding: 30px;
+
+  background-color: transparent;
+
+  pointer-events: none;
+
+  z-index: 10000;
+}
+
+#notifwrapper .notif {
+  position: relative;
+
+  display: block;
+  width: 100%;
+  min-height: 80px;
+
+  margin: 10px 0;
+  padding: 10px;
+
+  border-radius: 20px;
+
+  background-color: var(--primary-background-color);
+  box-shadow: 0px 0px 10px 0px #5f5f5f;
+
+  opacity: 0.8;
+}
+#notifwrapper .notif p {
+  display: block;
+
+  font-size: 1.5em;
+  color: var(--primary-color);
 }

@@ -11,3 +11,8 @@ type AuthKey struct {
 	TimeLimit time.Time
 	User      User `gorm:"foreignKey:UID;references:ID;"`
 }
+
+type AuthkeyRequest struct {
+	Key string `json:"authkey"`
+	DID string `json:"did"`
+}

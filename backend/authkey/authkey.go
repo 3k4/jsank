@@ -1,30 +1,14 @@
 package authkey
 
 import (
-	"crypto/rand"
-	"errors"
 	"log"
 	"time"
 
+	"github.com/3k4/hjans-backend/dbman"
 	"github.com/3k4/hjans-backend/models"
 	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
 )
-
-func makeRandomStr(digit uint32) (string, error) {
-	const letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-
-	b := make([]byte, digit)
-	if _, err := rand.Read(b); err != nil {
-		return "", errors.New("unexpected error...")
-	}
-
-	var result string
-	for _, v := range b {
-		result += string(letters[int(v)%len(letters)])
-	}
-	return result, nil
-}
 
 //true パスワード認証成功
 func passwordCheck(hashed string, password string) bool {
@@ -40,7 +24,7 @@ func passwordCheck(hashed string, password string) bool {
 func LoginAndRegistAuthKey(db *gorm.DB, did string, password string) (string, bool) {
 	var authkey string
 
-	nkey, err := makeRandomStr(50)
+	nkey, err := dbman.MakeRandomStr(50)
 	if err != nil {
 		log.Println("Error! Cannnot login")
 	}
@@ -67,6 +51,8 @@ func LoginAndRegistAuthKey(db *gorm.DB, did string, password string) (string, bo
 
 		authkey = authkeystruct.Key
 
+		log.Println("Someuser logined.")
+
 		return authkey, true
 	} else {
 		return "", false
@@ -82,9 +68,14 @@ func CheckKey(db *gorm.DB, did string, key string) bool {
 	db.Where("Key = ?", key).First(&nauthkey)
 	db.Where("D_ID = ?", did).First(&user)
 
-	if nauthkey.UID == user.ID {
-		if currenttime.After(nauthkey.TimeLimit) {
-			return true
+	//ユーザーのデータが正しく入っているか（これをかくにんしないと本当にユーザーあるのかわからｎ
+	if user.DID != "" {
+		if nauthkey.UID == user.ID {
+			if currenttime.After(nauthkey.TimeLimit) {
+				return true
+			} else {
+				return false
+			}
 		} else {
 			return false
 		}

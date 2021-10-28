@@ -8,6 +8,8 @@ const AuthKeyTimeLimitHour = 5
 const AuthKeySaveCookieKeyName = "jsauthkey"
 const UserNameSaveCookieKeyName = "jsuid"
 
+const CookieHTTPOnly = false
+
 //DB
 
 const DB_UserName = "postgres"
